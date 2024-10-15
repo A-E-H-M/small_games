@@ -1,4 +1,4 @@
-# Small Game Clones
+# Pretty Pretty Pong
 Pretty Pretty Pong is meant to replicate the 1972 breakout game Pong from Atari. The focus of this project is to reinforce OOP concepts, such as, encapsulation, polymorphism, and inheritance.
 
 ### Organization
