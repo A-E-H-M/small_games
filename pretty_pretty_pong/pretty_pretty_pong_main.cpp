@@ -2,12 +2,12 @@
 #include <cstdlib>
 #include <SFML/Graphics.hpp>
 
-#include "bat.h"
+#include "bat.hpp"
 
 int main()
 {
 	// Create a video mode object
-	VideoMove vm(1920, 1080);
+	VideoMode vm(1920, 1080);
 
 	// Create and open a window for the game
 	RenderWindow window(vm, "Pong", Style::Fullscreen);
@@ -40,6 +40,7 @@ int main()
 	Clock clock;
 
 	// Create the main game loop
+	while (window.isOpen())
 	{
 		// Handle player input
 		Event event;
@@ -59,27 +60,37 @@ int main()
 		// Handle the pressing and releasing of the arrow keys
 		if (Keyboard::isKeyPressed(Keyboard::Left))
 		{
-			bat.moveLeft();
+			m_Bat.moveLeft();
 		}
 		else
 		{
-			bat.stopLeft();
+			m_Bat.stopLeft();
 		}
 		if (Keyboard::isKeyPressed(Keyboard::Right))
 		{
-			bat.moveRight();
+			m_Bat.moveRight();
 		}
 		else
 		{
-			bat.stopRight();
+			m_Bat.stopRight();
 		}
 
 
-		//
 		// Update the bat, the ball and HUD
-		//
-		//
+		// Update the delta time
+		Time dt = clock.restart();
+		m_Bat.update(dt);
+		// Update the HUD text
+		std::stringstream ss;
+		ss << "Score: " << score << " Lives: " << lives;
+		hud.setString(ss.str());
+
 		// Draw the bat, the ball and HUD
+		window.clear();
+		window.draw(hud);
+		window.draw(m_Bat.getShape());
+		window.display();
+
 	} // End main game loop
 	return 0;
 }
